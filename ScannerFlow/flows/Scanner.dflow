@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<glue>
+    <info>
+        <usage>dflow</usage>
+    </info>
+    <blocks id="Main">
+        <block type="Function" name="transformToPointCloud" function="pointCloud=Scan.Transform.transformToPointCloud(scan)" x="601.83" y="-82.7" width="120.0" height="100.0" path="Scan.Transform.transformToPointCloud">
+            <parameters/>
+        </block>
+        <block type="Consumer" name="view" function="View.view(iconics,decoration)" x="604.83" y="101.3" width="120.0" height="100.0" path="View.view">
+            <parameters>
+                <param name="ID">
+                    <val>viewer3D</val>
+                </param>
+            </parameters>
+        </block>
+        <block type="Provider" name="OnNewScan" event="Scan.Provider.RemoteScanner.OnNewScan(scan,sensordata)" x="602.08" y="-240.88" width="120.0" height="76.0" path="Scan.Provider.RemoteScanner.OnNewScan">
+            <parameters>
+                <param name="IPAddress">
+                    <val>192.168.0.1</val>
+                </param>
+                <param name="Interface">
+                    <val>ETHERNET</val>
+                </param>
+            </parameters>
+        </block>
+    </blocks>
+    <connections>
+        <link from="transformToPointCloud:pointCloud" to="view:iconics"/>
+        <link from="OnNewScan:scan" to="transformToPointCloud:scan"/>
+    </connections>
+</glue>
